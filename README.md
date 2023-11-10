@@ -25,4 +25,4 @@ Before running the bot, make sure to create a `config.ini` file in the same dire
 token = YOUR_TELEGRAM_BOT_TOKEN
 image = PATH_TO_IMAGE_FILE
 site = LINK_TO_SITE_OR_NOTES
-
+name = NAME_OF_THE_BOT
