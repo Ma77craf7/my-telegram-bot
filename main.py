@@ -22,7 +22,7 @@ logging.basicConfig(
 )
 
 # Handler for the /start command
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE,name=botName):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Hey, I'm {name}, to see wonders use the /wonders command.")
 
 # Handler for the /appunti command
