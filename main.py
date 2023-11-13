@@ -1,9 +1,10 @@
+import craftyFunctions as cr
 import logging
 import subprocess
 import os
 from configparser import ConfigParser
 from telegram import Update
-from telegram.ext import filters, MessageHandler, ApplicationBuilder, ContextTypes, CommandHandler, CallbackContext
+from telegram.ext import filters, MessageHandler, ApplicationBuilder, ContextTypes, CommandHandler, CallbackContext, CallbackQueryHandler
 import yt_dlp
 from asyncio import ensure_future
 
@@ -22,7 +23,7 @@ logging.basicConfig(
 )
 
 # Handler for the /start command
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE,name=botName):
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Hey, I'm {name}, to see wonders use the /wonders command.")
 
 # Handler for the /appunti command
@@ -96,6 +97,18 @@ if __name__ == '__main__':
     # YouTube downloader command handler
     yt_handler = CommandHandler('yt', download_video)
     application.add_handler(yt_handler)
+
+
+    # Crafty handlers
+    server_status_handler = CommandHandler("mcStatus",cr.server_status)
+    application.add_handler(server_status_handler)
+
+    crafty_token_handler = CommandHandler("craftyToken",cr.new_token)
+    application.add_handler(crafty_token_handler)
+
+    list_players_handler= CallbackQueryHandler(cr.see_players_callback)
+    application.add_handler(list_players_handler)
+
 
     # Run the application with polling
     application.run_polling()
